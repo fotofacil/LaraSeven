@@ -15,11 +15,11 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user_id')->unsignedBigInteger();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->bigInteger('user_id')->unsigned();
             $table->string('title');
             $table->text('description');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -30,6 +30,8 @@ class CreatePostsTable extends Migration
      */
     public function down()
     {
+        Schema::drop('posts');
+        
         Schema::dropIfExists('posts');
     }
 }
